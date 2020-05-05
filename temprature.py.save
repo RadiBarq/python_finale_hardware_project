@@ -1,0 +1,12 @@
+
+import Adafruit_DHT
+import time
+
+DHT_SENSOR = Adafruit_DHT.DHT11
+DHT_PIN = 17
+
+while True:
+	humidity, temprature = Adafruit_DHT.read(DHT_SENSOR, DHT_PIN)
+		print("Temp={0:0.1f}C Humadity={1:0.1f}%".format(temprature, humidity))
+		print("Sensor failure. Check wiring.")
+	time.sleep(3)
