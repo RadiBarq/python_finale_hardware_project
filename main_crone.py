@@ -1,6 +1,5 @@
 from camera import Camera
 from ultrasonic import UltraSonic
-from temprature import Temprature
 from moisture import Moisture
 from ldr import LDR
 from pump import Pump
@@ -8,6 +7,8 @@ from network_model import NetworkModel
 import time
 from dateutil import parser
 import datetime
+from humidity import Humidity
+from temperature import Temperature
 
 class Main:
 	MIN_MOISTURE_THRESHOLD_PERCENTAGE = 30  
@@ -17,8 +18,9 @@ class Main:
 		# Initialization
 		self.camera = Camera()
 		self.ultraSonic = UltraSonic()
-		self.temperature = Temprature()	
+		self.temperature = Temperature()	
 		self.moisture = Moisture()
+		self.humidity = Humidity()
 		self.pump = Pump()	
 		self.ldr = LDR()
 		self.jobs = []
@@ -50,28 +52,33 @@ class Main:
 		print(self.filteredJobs)
 		for job in self.filteredJobs:
 			jobName = job["name"]
+			jobURL = job["job_url"]
 			print(jobName)
 			if (jobName == "WaterLevel"):
 				print("water works")
 				## Distance
+				self.ultraSonic.execute(jobURL)
 				self.waterLevel = self.ultraSonic.getDistance()
 				print('distance: {} cm '.format(self.waterLevel))
 				time.sleep(1)
 
 			if (jobName == "Temperature"):
 				## Temp result
-				self.temperature.readTempratureAndHumadity()
+				self.temperature.execute(jobURL)
+				time.sleep(1)
+			if (jobName == "Humidity"):
+				self.humidity.execute(jobURL)
 				time.sleep(1)
 
 			if (jobName == "Moisture"):
 				## Moisture percentage
+				self.moisture.execute(jobURL)
 				self.moisturePercentage = self.moisture.getMoisture()
-				print("moisture is {:>5.3f}%".format(self.moisturePercentage))
 				time.sleep(1)
 
 			if (jobName == "Brightness"):
 				##LDR 
-				ldrPercentage = self.ldr.readLDR()
+				ldrPercentage = self.ldr.execute(jobURL)
 				time.sleep(1)
 			
 			if(jobName == "Camera"):

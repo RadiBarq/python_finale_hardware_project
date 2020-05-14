@@ -2,9 +2,9 @@ import requests
 
 class NetworkModel:
 
-	baseURL = "http://192.168.1.148:8001"
-	planterID = 1
-	plantersURL = "{0}/api/planters/{1}".format(baseURL ,planterID)
+	baseURL = "http://192.168.1.148:8001/"
+	planterID = 2
+	plantersURL = "{0}api/planters/{1}".format(baseURL ,planterID)
 	jobsURL = "{0}/jobs".format(plantersURL)
 		
 	def __init__(self):
@@ -20,3 +20,17 @@ class NetworkModel:
 	def getJob(name):
 		uri = "{0}/{1}/".format(NetworkModel.jobsURL, name)
 		return requests.get(uri)
+
+	@staticmethod
+	def postSensorValue(url, data):
+		uri = "{0}{1}".format(NetworkModel.baseURL, url)
+		print(uri)
+		print(requests.post(uri, json=data))
+
+		
+		
+
+		
+				
+		
+		
