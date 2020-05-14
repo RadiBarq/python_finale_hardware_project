@@ -1,0 +1,14 @@
+import requests
+
+
+class NetworkModel:
+	
+	baseURL = "http://192.168.1.148:8001"
+	planterID = 1
+	
+	def __init__(self):
+		pass
+
+	@staticmethod
+	def getAllJobs():
+		print(requests.get(baseURL + "api/planters/" + planterID + "/"))
