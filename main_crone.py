@@ -52,7 +52,7 @@ class Main:
 		print(self.filteredJobs)
 		for job in self.filteredJobs:
 			jobName = job["name"]
-			jobURL = job["job_url"]
+			jobURL = job["url"]
 			print(jobName)
 			if (jobName == "WaterLevel"):
 				print("water works")
@@ -60,29 +60,29 @@ class Main:
 				self.ultraSonic.execute(jobURL)
 				self.waterLevel = self.ultraSonic.getDistance()
 				print('distance: {} cm '.format(self.waterLevel))
-				time.sleep(1)
+				time.sleep(0.2)
 
 			if (jobName == "Temperature"):
 				## Temp result
 				self.temperature.execute(jobURL)
-				time.sleep(1)
+				time.sleep(0.2)
 			if (jobName == "Humidity"):
 				self.humidity.execute(jobURL)
-				time.sleep(1)
+				time.sleep(0.2)
 
 			if (jobName == "Moisture"):
 				## Moisture percentage
 				self.moisture.execute(jobURL)
 				self.moisturePercentage = self.moisture.getMoisture()
-				time.sleep(1)
+				time.sleep(0.2)
 
 			if (jobName == "Brightness"):
 				##LDR 
 				ldrPercentage = self.ldr.execute(jobURL)
-				time.sleep(1)
+				time.sleep(0.2)
 			
 			if(jobName == "Camera"):
-				self.camera.takePicture()
+				self.camera.execute(jobURL)
 
 		if (self.moisturePercentage < Main.MIN_MOISTURE_THRESHOLD_PERCENTAGE and 
 			self.waterLevel > Main.MIN_WATER_LEVEL_THRESHOLD_CM):

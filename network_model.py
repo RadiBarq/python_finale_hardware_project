@@ -2,8 +2,8 @@ import requests
 
 class NetworkModel:
 
-	baseURL = "http://192.168.1.148:8001/"
-	planterID = 2
+	baseURL = "http://192.168.1.148:8000/"
+	planterID = 1
 	plantersURL = "{0}api/planters/{1}".format(baseURL ,planterID)
 	jobsURL = "{0}/jobs".format(plantersURL)
 		
@@ -26,6 +26,13 @@ class NetworkModel:
 		uri = "{0}{1}".format(NetworkModel.baseURL, url)
 		print(uri)
 		print(requests.post(uri, json=data))
+
+	@staticmethod
+	def postImage(url, image_name):
+		uri = "{0}{1}".format(NetworkModel.baseURL, url)
+		files = {'planter_id': NetworkModel.planterID, 'image': open(image_name, 'rb')}
+		print(requests.post(uri, files=files))
+		
 
 		
 		
