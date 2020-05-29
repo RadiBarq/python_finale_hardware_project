@@ -9,9 +9,10 @@ from dateutil import parser
 import datetime
 from humidity import Humidity
 from temperature import Temperature
+from motor import Motor
 
 class Main:
-	MIN_MOISTURE_THRESHOLD_PERCENTAGE = 30  
+	MIN_MOISTURE_THRESHOLD_PERCENTAGE = 45  
 	MIN_WATER_LEVEL_THRESHOLD_CM = 4
 
 	def __init__(self):
@@ -49,7 +50,7 @@ class Main:
 			self.filteredJobs.append(job)
 
 	def runJobs(self):
-		print(self.filteredJobs)
+		#print(self.filteredJobs)
 		for job in self.filteredJobs:
 			jobName = job["name"]
 			jobURL = job["url"]
@@ -74,6 +75,7 @@ class Main:
 				## Moisture percentage
 				self.moisture.execute(jobURL)
 				self.moisturePercentage = self.moisture.getMoisture()
+				print(self.moisturePercentage)
 				time.sleep(0.2)
 
 			if (jobName == "Brightness"):

@@ -5,7 +5,7 @@ import time
 class Pump:
 
 	pin = 25
-	runningTime = 10	
+	runningTime = 5	
 	
 	def __init__(self):
 

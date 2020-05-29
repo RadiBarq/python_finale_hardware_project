@@ -7,4 +7,5 @@ from ldr import LDR
 from network_model import NetworkModel
 from temprature import Temprature
 from humidity import Humidity
+from motor import Motor
 
